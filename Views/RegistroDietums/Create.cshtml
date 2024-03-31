@@ -1,0 +1,143 @@
+﻿@model PAWUNED_EdgarArias_Proyecto1.Models.RegistroDietum
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+@inject IHttpContextAccessor HttpContextAccessor
+
+@{
+    var userID = HttpContextAccessor.HttpContext.Session.GetString("id");
+}
+
+
+<link href="/css/Styles.css" rel="stylesheet" type="text/css">
+
+<script>
+    function calcularCalorias() {
+        var snackCal = 125;
+        var almuerzoCal = 750;
+        var cenaCal = 500;
+        var desayuno = 500;
+        var factorAlimenticio = 1;
+        var totalCalorias = 0;
+    
+        var tipoComidaElement = document.getElementById('TipoComida');
+        var comidaSeleccionada = tipoComidaElement.options[tipoComidaElement.selectedIndex].value;
+        console.log(comidaSeleccionada);
+
+        var tipoAlimentoElement = document.getElementById("alimentosConsumidos");
+        var tipoAlimentoSeleccionado = tipoAlimentoElement.options[tipoAlimentoElement.selectedIndex].value;
+
+        console.log(tipoAlimentoSeleccionado);
+        //Fuerte liiana media y baja
+
+        switch (tipoAlimentoSeleccionado) {
+            case "ComidaLiviana":
+                factorAlimenticio = 0.6;
+                break;
+            case "ComidaMedia":
+                factorAlimenticio = 1;
+                break;
+            case "ComidaFuerte":
+                factorAlimenticio = 1.2;
+                break;
+            case "ComidaBaja":
+                factorAlimenticio = 0.4;
+                break;
+        }
+
+        console.log(factorAlimenticio); 
+        
+
+        switch (comidaSeleccionada) {
+            case "Almuerzo":
+                totalCalorias = 750 * factorAlimenticio;
+                break;
+            case "Desayuno":
+                totalCalorias = 500 * factorAlimenticio;
+                break;
+            case "Cena":
+                totalCalorias = 500 * factorAlimenticio; 
+                break;
+            case "Merienda":
+                totalCalorias = 125 * factorAlimenticio;
+                break;
+        }
+        
+        console.log("Total calorias consumidas" + totalCalorias);
+        document.getElementById("caloriasTotales").value = totalCalorias; 
+    }
+</script>
+
+
+
+
+<h1>Registrar Alimentación</h1>
+
+<h4>Registro de alimentos consumidos</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="IdUsuario" class="control-label"></label>
+                <span asp-validation-for="IdUsuario" class="form-control" value="@userID">@userID</span>
+                @* <select asp-for="IdUsuario" class ="form-control" asp-items="ViewBag.IdUsuario"></select> *@
+            </div>
+            <div class="form-group">
+                <label asp-for="FechaComida" class="control-label"></label>
+                <input asp-for="FechaComida" type="date" class="form-control" />
+                <span asp-validation-for="FechaComida" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="TipoComida" class="control-label"></label>
+                <select asp-for="TipoComida" class="form-control" id="TipoComida">
+                    <option value="">Seleccionar una comida</option>
+                    <option value="Desayuno">Desayuno</option>
+                    <option value="Merienda">Merienda</option>
+                    <option value="Almuerzo">Almuerzo</option>
+                    <option value="Cena">Cena</option>
+                </select>
+                <span asp-validation-for="TipoComida" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="AlimentosConsumidos" class="control-label"></label>
+                <select asp-for="AlimentosConsumidos" class="form-control" id="alimentosConsumidos">
+                    <option value="">Seleccionar una opcion</option>
+                    <option value="ComidaFuerte">Comida fuerte</option>
+                    <option value="ComidaLiviana">Comida liviana</option>
+                    <option value="ComidaMedia">Comida media</option>
+                    <option value="ComidaBaja">Merienda</option>
+                </select>
+                <span asp-validation-for="AlimentosConsumidos" class="text-danger"></span>
+            </div>
+
+            <button onclick="calcularCalorias()">Calcular calorías consumidas</button>
+
+
+            <div class="form-group">
+                <label asp-for="CaloriasTotales" class="control-label"></label>
+                <input asp-for="CaloriasTotales" class="form-control" id="caloriasTotales" />
+                <span asp-validation-for="CaloriasTotales" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Comentarios" class="control-label"></label>
+                <input asp-for="Comentarios" class="form-control" />
+                <span asp-validation-for="Comentarios" class="text-danger"></span>
+            </div>
+            <br />
+            <br />
+            <div class="form-group">
+                <input type="submit" value="Registrar Alimentación" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

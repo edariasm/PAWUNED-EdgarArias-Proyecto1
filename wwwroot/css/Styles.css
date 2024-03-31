@@ -1,0 +1,70 @@
+﻿body {
+    background-color: antiquewhite;
+}
+
+h2 {
+    font-size: 20px;
+    color: brown;
+}
+
+
+h2 {
+    font-size: 15px;
+    color: blueviolet;
+}
+
+h3 {
+    color: coral;
+}
+
+img {
+    width: 400px;
+    height: 350px;
+}
+
+#midiv {
+    background-color: red;
+    width: 30%;
+    height: 125px;
+    margin-top: 50px;
+    margin-bottom: 50px;
+}
+
+#otrodiv {
+    background-color: blue;
+    width: 20%;
+    height: 35px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    vertical-align: central;
+}
+
+#separador {
+    margin-bottom: 15px;
+    margin-top: 15px;
+}
+
+
+table {
+    border: 1px solid #b3adad;
+    border-width: 1px;
+    border-collapse: collapse;
+    padding: 5px;
+}
+
+    table th {
+        border: 1px solid #b3adad;
+        border-width: 1px;
+        padding: 5px;
+        background: #f0f0f0;
+        color: #313030;
+    }
+
+    table td {
+        border: 1px solid black;
+        text-align: center;
+        padding: 5px;
+        background: #ffffff;
+        color: #313030;
+        column-width: 175px;
+    }

@@ -1,0 +1,87 @@
+﻿@model PAWUNED_EdgarArias_Proyecto1.Models.Usuario
+
+@{
+    ViewData["Title"] = "Estadisticas y Alcance de metas";
+}
+
+
+@inject IHttpContextAccessor HttpContextAccessor
+
+@{
+    var userID = HttpContextAccessor.HttpContext.Session.GetString("id");
+
+}
+
+
+<link href="/css/Styles.css" rel="stylesheet" type="text/css">
+
+<style>
+	table {
+		border: 1px solid #b3adad;
+		border-width: 1px;
+		border-collapse: collapse;
+		padding: 5px;
+		text-align: center;
+	}
+
+		table th {
+			border: 1px solid #b3adad;
+			border-width: 1px;
+			padding: 5px;
+			background: #f0f0f0;
+			color: #313030;
+			text-align: center;
+		}
+
+		table td {
+			border: 1px solid black;
+			text-align: left;
+			padding: 5px;
+			background: #ffffff;
+			color: #313030;
+			column-width: 100%;
+			text-align: center;
+		}
+</style>
+
+
+
+<h1>Estadisticas y Estado de metas</h1>
+<h2>ID de usuario @userID</h2>
+
+<table>
+	<thead>
+		<tr>
+			<th>Estadistica</th>
+			<th>Totales acumulados del periodo</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>Cantidad de sesiones de entrenamiento:</td>
+			<td>@ViewBag.Sesiones</td>
+		</tr>
+		<tr>
+			<td>Calorías totales consumidas por alimentacion:</td>
+			<td>@ViewBag.CaloriasTotales</td>
+		</tr>
+		<tr>
+			<td>Calorías totales quemadas por actividad física:</td>
+			<td>@ViewBag.CaloriasActividadFisica</td>
+		</tr>
+		<tr>
+			<td>Total de distancia en kilómetros en carreras: </td>
+			<td>@ViewBag.DistanciaTotal</td>
+		</tr>
+		<tr>
+			<td>Total de distancia en kilómetros en natación: </td>
+			<td>@ViewBag.DistanciaNado</td>
+		</tr>
+	</tbody>
+</table>
+
+
+
+
+
+

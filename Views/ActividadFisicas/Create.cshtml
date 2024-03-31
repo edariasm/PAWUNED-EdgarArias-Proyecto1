@@ -1,0 +1,203 @@
+﻿@model PAWUNED_EdgarArias_Proyecto1.Models.ActividadFisica
+
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+@inject IHttpContextAccessor HttpContextAccessor
+
+@{
+    //var userID = HttpContextAccessor.HttpContext.Session.GetString("id");
+    var pesoCorporal = HttpContextAccessor.HttpContext.Session.GetString("peso");
+
+    var userIDString = HttpContextAccessor.HttpContext.Session.GetString("id"); // Obtener el valor de la sesión como string
+    int userID; // Declarar la variable donde se almacenará el ID convertido a entero
+
+    // Intentar convertir el valor de userIDString a un entero y almacenarlo en userID
+
+    int.TryParse(userIDString, out userID);
+
+    if (!string.IsNullOrEmpty(userIDString) && int.TryParse(userIDString, out userID))
+    {
+        Console.WriteLine("Variable convertida con exito: " +userID);
+    }
+
+
+
+}
+
+
+
+
+<link href="/css/Styles.css" rel="stylesheet" type="text/css">
+
+<script>
+    function consumo() {
+        var totalCalorias = 0;
+        console.log("calorias: " + totalCalorias);
+        var met = 0.0; 
+        console.log("met: " + met);
+        var pesoCorp = @pesoCorporal;
+        console.log("Peso: " + pesoCorp);
+        var tipoActividad = document.getElementById('TipoActividad');
+        var actividadSeleccionada = tipoActividad.options[tipoActividad.selectedIndex].value;
+        console.log("actividad:" + actividadSeleccionada);
+        var tiempoAct = document.getElementById('DuracionMinutos');
+        var tiempoSelect = tiempoAct.options[tiempoAct.selectedIndex].value;
+        console.log("tiempo de actividad: " +tiempoSelect);
+        var distanciaRecorrida = document.getElementById('DistanciaRecorrida');
+        var distanciaSelect = distanciaRecorrida.options[distanciaRecorrida.selectedIndex].value;
+        console.log("distancia recorrida: " + distanciaSelect);
+        //formula para calcular el consumo calorico: MET*Peso corporal en kg *0.0175 * tiempo en min
+        switch (actividadSeleccionada) {
+            case "Correr":
+                met = 10;
+                console.log("met por correr:" + met);
+                break;
+            case "Pesas":
+                met = 6.8;
+                break;
+            case "HIIT":
+                met = 8;
+                break;
+            case "Nadar":
+                met = 6;
+                break;
+        }
+        console.log("met por actividad: " + met);
+
+        var factor = 0.0175;
+        console.log("factor: " + factor);
+               
+        var consumoCalorico = (factor * pesoCorp * tiempoSelect * met);
+        console.log("consumo calorico total: " + consumoCalorico);
+        document.getElementById('consumoCalorico').value = consumoCalorico;
+
+    }
+</script>
+
+
+
+
+
+<h1>Registrar una nueva actividad física</h1>
+
+<h4>Ingrese los campos requeridos</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            @* <div class="form-group">
+                <input asp-for="IdRegActividad" class="form-control" />
+                 <select asp-for="IdRegActividad" class="form-control"></select> 
+            </div> *@
+            <div class="form-group">
+                <label asp-for="IdUsuario" class="control-label"></label>
+                <span asp-validation-for="IdUsuario" class="form-control" value="@userID">@userID</span>
+                @* <select asp-for="IdUsuario" class="form-control" asp-items="ViewBag.IdUsuario"></select>  *@
+            </div>
+            <div>
+                <p>Peso corporal:</p>
+                <p id="peso">@pesoCorporal</p>
+            </div>
+            <div class="form-group">
+                <label asp-for="TipoActividad" class="control-label"></label>
+                <select asp-for="TipoActividad" class="form-control" id="TipoActividad">
+                 <option value="actividad">Seleccionar una actividad</option>
+                <option value="Correr">Correr</option>
+                <option value="Pesas">Pesas</option>
+                <option value="HIIT">HIIT</option>
+                <option value="Nadar">Nadar</option>
+                </select>
+                @* <input asp-for="TipoActividad" class="form-control" /> *@
+                <span asp-validation-for="TipoActividad" class="text-danger"></span>
+            </div>
+            <script>
+                document.getElementById('TipoActividad').addEventListener('change', function () {
+                    var tipoActividad = this.value;
+                    console.log("tipo de actividad: " + tipoActividad);
+                    var distanciaElement = document.getElementById('DistanciaRecorrida');
+                    var distanciaSeleccionada = distanciaElement.options[distanciaElement.selectedIndex].value;
+                    console.log("distancia recorrida: " + distanciaSeleccionada);
+
+                    // Desactivar la distancia si la actividad es Pesas o HIIT
+                    if (tipoActividad === 'Pesas' || tipoActividad === 'HIIT') {
+                        document.getElementById('DistanciaRecorrida').disabled = true;
+
+
+                    } else {
+                        document.getElementById('DistanciaRecorrida').disabled = false;
+
+                    }
+                });
+            </script>
+
+
+
+            <div class="form-group">
+                <label asp-for="FechaHoraActividad" class="control-label"></label>
+                <input asp-for="FechaHoraActividad" class="form-control" />
+                <span asp-validation-for="FechaHoraActividad" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="DuracionMinutos" class="control-label"></label>
+                <select asp-for="DuracionMinutos" class="form-control" id="DuracionMinutos">
+                    <option value="">Seleccione el tiempo</option>
+                    <option value=20>20</option>
+                    <option value=30>30</option>
+                    <option value=45>45</option>
+                    <option value=60>60</option>
+                </select>
+                @* <input asp-for="DuracionMinutos" class="form-control" id="duracion" /> *@
+                <span asp-validation-for="DuracionMinutos" class="text-danger"></span>
+                </div>
+            <div class="form-group">
+                <label asp-for="DistanciaRecorrida" class="control-label">Distancia recorrida en kilómetros</label>
+                <select asp-for="DistanciaRecorrida" class="form-control" id="DistanciaRecorrida">
+                    <option value="">Seleccione distancia</option>
+                    <option value=1>1</option>
+                    <option value=2>2</option>
+                    <option value=3>3</option>
+                    <option value=4>4</option>
+                    <option value=5>5</option>
+                    <option value=6>6</option>
+                    <option value=7>7</option>
+                    <option value=8>8</option>
+                    <option value=9>9</option>
+                    <option value=10>10</option>
+                </select>
+                @* <input asp-for="DistanciaRecorrida" class="form-control" /> *@
+                <span asp-validation-for="DistanciaRecorrida" class="text-danger"></span>
+            </div>
+            <button onclick="consumo()">Consumo calórico</button>
+            <br /><br />
+            
+            <div class="form-group">
+                <label asp-for="ConsumoCalorico" class="control-label"></label>
+                <input asp-for="ConsumoCalorico" class="form-control" id="consumoCalorico" type="number" />
+                <span asp-validation-for="ConsumoCalorico" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Comentarios" class="control-label"></label>
+                <input asp-for="Comentarios" class="form-control" />
+                <span asp-validation-for="Comentarios" class="text-danger"></span>
+            </div>
+            
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

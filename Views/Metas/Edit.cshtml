@@ -1,0 +1,59 @@
+﻿@model PAWUNED_EdgarArias_Proyecto1.Models.Meta
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>Edit</h1>
+
+<h4>Meta</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="IdMetaSalud" />
+            <div class="form-group">
+                <label asp-for="IdUsuario" class="control-label"></label>
+                <select asp-for="IdUsuario" class="form-control" asp-items="ViewBag.IdUsuario"></select>
+                <span asp-validation-for="IdUsuario" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="TipoMeta" class="control-label"></label>
+                <input asp-for="TipoMeta" class="form-control" />
+                <span asp-validation-for="TipoMeta" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="PesaObjetivo" class="control-label"></label>
+                <input asp-for="PesaObjetivo" class="form-control" />
+                <span asp-validation-for="PesaObjetivo" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="FechaObjetivo" class="control-label"></label>
+                <input asp-for="FechaObjetivo" class="form-control" />
+                <span asp-validation-for="FechaObjetivo" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="NivelActividad" class="control-label"></label>
+                <input asp-for="NivelActividad" class="form-control" />
+                <span asp-validation-for="NivelActividad" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ObjetivosEspecificos" class="control-label"></label>
+                <input asp-for="ObjetivosEspecificos" class="form-control" />
+                <span asp-validation-for="ObjetivosEspecificos" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

@@ -1,0 +1,67 @@
+﻿@model IEnumerable<PAWUNED_EdgarArias_Proyecto1.Models.RegistroDietum>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<link href="/css/Styles.css" rel="stylesheet" type="text/css">
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.FechaComida)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TipoComida)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.AlimentosConsumidos)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CaloriasTotales)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Comentarios)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.IdUsuarioNavigation)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.FechaComida)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TipoComida)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.AlimentosConsumidos)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CaloriasTotales)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Comentarios)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IdUsuarioNavigation.IdUsuario)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.IdRegDieta">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.IdRegDieta">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.IdRegDieta">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

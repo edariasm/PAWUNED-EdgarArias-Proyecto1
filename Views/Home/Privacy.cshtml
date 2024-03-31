@@ -1,0 +1,24 @@
+﻿@{
+    ViewData["Title"] = "Privacy Policy";
+}
+@* <h1>@ViewData["Title"]</h1> *@
+
+@inject IHttpContextAccessor HttpContextAccessor
+
+
+
+@{
+    var userID = HttpContextAccessor.HttpContext.Session.GetString("id");
+    var pesoCorporal = HttpContextAccessor.HttpContext.Session.GetString("peso");
+}
+
+<link href="/css/Styles.css" rel="stylesheet" type="text/css">
+
+<h1>Bienvenido al sistema de salud física.</h1>
+<h2>Autenticación correcta</h2>
+<h3>Id de usuario: @userID</h3>
+@* <h3>Peso corporal: @pesoCorporal</h3> *@
+
+<br />
+<br />
+<a asp-controller="Usuarios" asp-action="Profile" asp-route-id="@userID">Ver Perfil de usuario</a>

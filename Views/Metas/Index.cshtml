@@ -1,0 +1,67 @@
+﻿@model IEnumerable<PAWUNED_EdgarArias_Proyecto1.Models.Meta>
+
+@{
+    ViewData["Title"] = "Index";
+}
+<link href="/css/Styles.css" rel="stylesheet" type="text/css">
+
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.TipoMeta)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PesaObjetivo)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FechaObjetivo)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.NivelActividad)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ObjetivosEspecificos)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.IdUsuarioNavigation)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.TipoMeta)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PesaObjetivo)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FechaObjetivo)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NivelActividad)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ObjetivosEspecificos)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IdUsuarioNavigation.IdUsuario)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.IdMetaSalud">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.IdMetaSalud">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.IdMetaSalud">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

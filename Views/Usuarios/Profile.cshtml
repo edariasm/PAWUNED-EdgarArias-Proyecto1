@@ -1,0 +1,47 @@
+﻿@model PAWUNED_EdgarArias_Proyecto1.Models.Usuario
+
+@{
+    ViewData["Title"] = "Perfil de Usuario";
+}
+
+@inject IHttpContextAccessor HttpContextAccessor
+
+@{
+    var userID = HttpContextAccessor.HttpContext.Session.GetString("id");
+    var pesoCorporal = HttpContextAccessor.HttpContext.Session.GetString("peso");
+}
+
+
+<script type="text/javascript" src="~/js/funciones.js"></script>
+
+<link href="/css/Styles.css" rel="stylesheet" type="text/css">
+
+
+<h1>@ViewData["Title"]</h1>
+
+<div>
+    <h4>Nombre de Usuario: @Model.Username</h4>
+    
+    <p>Id de Usuario: @Model.IdUsuario</p>
+    <p>Nombre: @Model.Nombre</p>
+    <p>Email: @Model.Email</p>
+    <p>Fecha de nacimiento: @Model.FechaNac</p>
+    <p>Peso en Kg: @Model.Peso</p>
+    <p>altura en centímetros: @Model.Altura</p>
+
+    <!-- Mostrar la imagen si FotoPerfil no es nulo -->
+    @if (Model.FotoPerfil != null && Model.FotoPerfil.Length > 0)
+    {
+        <img src="data:image/jpeg;base64,@(Convert.ToBase64String(Model.FotoPerfil))" alt="Foto de perfil" width="600" height="700" />
+    }
+    else
+    {
+        <p>No hay foto de perfil disponible.</p>
+    }
+   
+</div>
+
+<div>
+    <a asp-controller="Estadisticas" asp-action="Index" asp-route-id="@userID">Estadisticas y Estado de metas</a>
+</div>
+
